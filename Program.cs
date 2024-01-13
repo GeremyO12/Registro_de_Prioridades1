@@ -1,13 +1,21 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.EntityFrameworkCore;
+using Registro_de_Prioridades1.DAL;
 using Registro_de_Prioridades1.Data;
 
 var builder = WebApplication.CreateBuilder(args);
+{
+    // Add services to the container.
+    builder.Services.AddRazorPages();
+    builder.Services.AddServerSideBlazor();
 
-// Add services to the container.
-builder.Services.AddRazorPages();
-builder.Services.AddServerSideBlazor();
-builder.Services.AddSingleton<WeatherForecastService>();
+    //obtenemos el ConStr para usarlo en el contexto
+    var ConStr = builder.Configuration.GetConnectionString("ConStr");
+
+    //Egregamos el contexto al builder con el ConStr
+    builder.Services.AddDbContext<RegistroContext>(Options => Options.UseSqlite(ConStr));
+}
 
 var app = builder.Build();
 
