@@ -1,0 +1,8 @@
+﻿@page "/Sistema"
+@page "/Sistema/{SistemaId:int}"
+@inject SistemasBLL SistemasBLL
+
+@code {
+	[Parameter]
+	public int? SistemaId { get; set; }
+}
